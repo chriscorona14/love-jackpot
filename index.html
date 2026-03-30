@@ -1007,7 +1007,7 @@
             {gameState === GameState.WON && <Confetti />}
 
             <div className={`
-              absolute inset-0 z-10 flex justify-between items-center pointer-events-auto py-4
+              absolute inset-0 z-10 hidden lg:flex justify-between items-center pointer-events-auto py-4
               transition-opacity duration-1000
               ${gameState === GameState.INTRO ? 'opacity-0' : 'opacity-100'}
               ${gameState === GameState.WON ? 'opacity-0' : ''}
