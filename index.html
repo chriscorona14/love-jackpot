@@ -4,163 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Love Jackpot 2026</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              serif: ['"Playfair Display"', 'serif'],
-              sans: ['"Montserrat"', 'sans-serif'],
-            },
-            colors: {
-              gold: { 100: '#FFFBE6', 200: '#FDF2C0', 300: '#F0D478', 400: '#D4AF37', 500: '#C5A028', 600: '#997B19', 900: '#3d2b05' },
-              rose: { 100: '#ffe4e6', 300: '#fda4af', 400: '#fb7185', 500: '#e11d48', 900: '#881337' },
-              void: '#0a0a0a', 
-            },
-            animation: {
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'shimmer': 'shimmer 2.5s infinite linear',
-              'heartbeat-bg': 'heartbeatBg 3s ease-in-out infinite',
-              'blur-in': 'blurIn 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards',
-              'blur-in-slow': 'blurIn 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards',
-              'shake': 'shake 0.5s linear infinite',
-            },
-            keyframes: {
-              shimmer: { '0%': { backgroundPosition: '-200% center' }, '100%': { backgroundPosition: '200% center' } },
-              blurIn: { '0%': { opacity: '0', filter: 'blur(12px)', transform: 'scale(0.98)' }, '100%': { opacity: '1', filter: 'blur(0)', transform: 'scale(1)' } },
-              heartbeatBg: { '0%, 100%': { opacity: '0.3' }, '50%': { opacity: '0.5' } },
-              shake: { '0%': { transform: 'translateX(0)' }, '25%': { transform: 'translateX(-1px)' }, '50%': { transform: 'translateX(1px)' }, '100%': { transform: 'translateX(0)' } }
-            }
-          },
-        },
-      }
-    </script>
     <style>
-      body { background-color: #0a0a0a; color: white; overflow: hidden; }
-      .text-lux-gold { background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: #d4af37; }
-      .text-rose-gold { background: linear-gradient(to bottom, #f3cfc6 22%, #e0bfb8 24%, #d4a59a 26%, #d4a59a 27%, #fcece9 40%, #a67c74 78%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: #fff; text-transform: uppercase; position: relative; }
-      .vignette { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 30%, rgba(10, 10, 10, 0.98) 90%); pointer-events: none; z-index: 4; }
-      .mask-linear-fade { mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%); }
+        body { background-color: #0a0a0a; color: white; font-family: sans-serif; overflow: hidden; margin: 0; }
+        .gold-text { color: #D4AF37; }
+        .vignette { position: fixed; inset: 0; background: radial-gradient(circle, transparent 40%, black 95%); pointer-events: none; }
+        .sidebar { width: 60px; height: 100vh; display: flex; flex-direction: column; gap: 10px; padding: 10px; overflow: hidden; }
+        @media (min-width: 768px) { .sidebar { width: 150px; } }
+        .photo-card { width: 100%; aspect-ratio: 3/4; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div class="vignette"></div>
+    
+    <div class="flex h-screen w-screen items-center justify-between relative z-10">
+        <div class="sidebar" id="left-sidebar"></div>
 
-    <script type="text/babel" data-presets="env,react">
-      const { useState, useEffect, useRef, useCallback, useMemo } = React;
+        <div class="flex-1 flex flex-col items-center justify-center text-center px-4">
+            <h1 class="text-3xl md:text-5xl font-serif font-bold mb-2 tracking-tighter" style="color: #f3cfc6;">LOVE JACKPOT</h1>
+            <p class="text-[10px] tracking-[0.3em] uppercase opacity-60 mb-8">Exclusivo para Lidise Nuñez</p>
 
-      const AUDIO_HEARTBEAT = "https://cdn.pixabay.com/audio/2022/03/15/audio_736881755a.mp3"; 
-      
-      const SIDEBAR_PHOTOS = [
-          "./Public/1.jpeg", "./Public/2.jpeg", "./Public/3.jpeg", "./Public/4.jpeg", "./Public/5.jpeg",
-          "./Public/6.jpeg", "./Public/7.jpeg", "./Public/8.jpeg", "./Public/9.jpeg", "./Public/10.jpeg",
-          "./Public/11.jpeg", "./Public/12.jpeg", "./Public/13.jpeg", "./Public/14.jpeg", "./Public/15.jpeg"
-      ];
-
-      const SYMBOLS = [
-        { id: 1, emoji: "🎢", title: "Orlando 2026", message: "An Epic Valentine Adventure Awaits.", image: "./Public/Orlando.png" },
-        { id: 2, emoji: "🌴", title: "Puerto Rico 2026", message: "Una escapada solo para nosotros.", image: "./Public/Puerto Rico.png" },
-        { id: 3, emoji: "👩‍❤️‍💋‍👨", title: "Besos y Abrazos", message: "Premio válido para toda la vida.", image: "./Public/Besos.png" },
-        { id: 4, emoji: "🍽️", title: "Cena Romántica", message: "Una noche deliciosa a la luz de las velas." },
-        { id: 5, emoji: "🎬", title: "Noche de Película", message: "Palomitas, manta y tú. El plan perfecto." },
-        { id: 6, emoji: "❤️", title: "Amor Eterno", message: "Tú eres mi mejor premio, hoy y siempre." }
-      ];
-
-      const SYMBOL_HEIGHT = 200; 
-
-      const App = () => {
-        const [gameState, setGameState] = useState('IDLE');
-        const [reelPositions, setReelPositions] = useState([null, null, null]);
-        const [showMystery, setShowMystery] = useState(true);
-        const [scale, setScale] = useState(1);
-        const [winData, setWinData] = useState(null);
-
-        useEffect(() => {
-          const handleResize = () => {
-            const h = window.innerHeight;
-            setScale(h < 800 ? h / 880 : 1);
-          };
-          handleResize();
-          window.addEventListener('resize', handleResize);
-          return () => window.removeEventListener('resize', handleResize);
-        }, []);
-
-        const spin = () => {
-          if (gameState === 'SPINNING') return;
-          setGameState('SPINNING');
-          setShowMystery(false);
-          setWinData(null);
-          
-          // Lógica simplificada de ganancia para prueba
-          setTimeout(() => {
-            const result =; // Forzamos victoria en Puerto Rico para prueba
-            setReelPositions(result);
-            setGameState('WON');
-            setWinData({ symbol: SYMBOLS });
-          }, 3000);
-        };
-
-        const Sidebar = ({ photos, side }) => (
-          <div className={`w-16 md:w-32 lg:w-44 h-full overflow-hidden flex flex-col items-center mask-linear-fade z-10`}>
-            {photos.map((src, idx) => (
-              <div key={idx} className="w-12 h-16 md:w-28 md:h-36 lg:w-40 lg:h-48 my-2 transition-all hover:scale-110">
-                <img src={src} className="w-full h-full object-cover rounded shadow-lg border border-white/10" onError={(e) => e.target.style.display='none'} />
-              </div>
-            ))}
-          </div>
-        );
-
-        return (
-          <div className="relative w-screen h-screen bg-void flex items-center justify-between overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-rose-900/20 to-void z-0"></div>
-            <div className="vignette"></div>
-
-            <Sidebar photos={SIDEBAR_PHOTOS.slice(0, 8)} side="left" />
-
-            <div className="flex-1 flex flex-col items-center justify-center z-20" style={{ transform: `scale(${scale})` }}>
-              <header className="mb-8 text-center">
-                <h1 className="text-4xl md:text-6xl font-serif font-black text-rose-gold tracking-widest">LOVE JACKPOT</h1>
-                <p className="text-gold-400 text-[10px] tracking-[0.4em] uppercase mt-2">Para Lidise Nuñez</p>
-              </header>
-
-              <div className="flex gap-2 md:gap-4 mb-8 bg-black/40 p-4 rounded-xl border border-rose-500/20">
-                {.map(i => (
-                  <div key={i} className="w-20 h-40 md:w-32 md:h-52 bg-void border border-rose-500/30 flex items-center justify-center overflow-hidden relative">
-                    {showMystery ? <span className="text-4xl text-rose-300/20">?</span> : 
-                      <span className="text-5xl">{reelPositions[i] !== null ? SYMBOLS[reelPositions[i]].emoji : "⏳"}</span>
-                    }
-                  </div>
-                ))}
-              </div>
-
-              <button onClick={spin} className="px-12 py-4 bg-rose-950/30 border border-rose-500/50 rounded-full text-rose-100 uppercase tracking-widest hover:bg-rose-900/50 transition-all">
-                {gameState === 'SPINNING' ? 'Girando...' : 'Spin the Future'}
-              </button>
+            <div class="flex gap-2 mb-10">
+                <div class="w-20 h-32 md:w-32 md:h-48 bg-zinc-900 border border-rose-500/30 flex items-center justify-center text-4xl rounded-lg shadow-2xl">?</div>
+                <div class="w-20 h-32 md:w-32 md:h-48 bg-zinc-900 border border-rose-500/30 flex items-center justify-center text-4xl rounded-lg shadow-2xl">?</div>
+                <div class="w-20 h-32 md:w-32 md:h-48 bg-zinc-900 border border-rose-500/30 flex items-center justify-center text-4xl rounded-lg shadow-2xl">?</div>
             </div>
 
-            <Sidebar photos={SIDEBAR_PHOTOS.slice(8, 15)} side="right" />
+            <button onclick="location.reload()" class="border border-rose-500/50 px-8 py-3 rounded-full uppercase tracking-widest text-sm hover:bg-rose-900/20 transition-all">
+                Spin the Future
+            </button>
+        </div>
 
-            {gameState === 'WON' && winData && (
-              <div className="fixed inset-0 z- bg-black/90 flex items-center justify-center p-4">
-                <div className="text-center bg-void p-8 rounded-2xl border border-gold-400 shadow-[0_0_50px_rgba(212,175,55,0.3)]">
-                  <h2 className="text-4xl font-serif text-gold-400 mb-4">{winData.symbol.title}</h2>
-                  <p className="text-xl italic text-rose-100 mb-8">"{winData.symbol.message}"</p>
-                  <button onClick={() => setGameState('IDLE')} className="bg-rose-600 px-8 py-2 rounded-full">Cerrar</button>
-                </div>
-              </div>
-            )}
-          </div>
-        );
-      };
+        <div class="sidebar" id="right-sidebar"></div>
+    </div>
 
-      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    <script>
+        const photos = [
+            "1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg", 
+            "6.jpeg", "7.jpeg", "8.jpeg", "9.jpeg", "10.jpeg", 
+            "11.jpeg", "12.jpeg", "13.jpeg", "14.jpeg", "15.jpeg"
+        ];
+
+        function fillSidebars() {
+            const left = document.getElementById('left-sidebar');
+            const right = document.getElementById('right-sidebar');
+
+            photos.slice(0, 8).forEach(p => {
+                const img = document.createElement('img');
+                img.src = `./Public/${p}`;
+                img.className = 'photo-card';
+                left.appendChild(img);
+            });
+
+            photos.slice(8, 15).forEach(p => {
+                const img = document.createElement('img');
+                img.src = `./Public/${p}`;
+                img.className = 'photo-card';
+                right.appendChild(img);
+            });
+        }
+        fillSidebars();
     </script>
 </body>
 </html>
