@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Love Jackpot 2026</title>
     
+    <!-- 1. Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- 2. Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600&family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     
+    <!-- 3. React & Babel (Con Crossorigin para evitar Script Error) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+    <!-- 4. Styles Config -->
     <script>
       tailwind.config = {
         theme: {
@@ -186,7 +190,7 @@
       // CONSTANTS
       // ==========================================
       const WIN_PROBABILITY = 0.35; 
-      const TOP_PRIZE_IDS =; 
+      const TOP_PRIZE_IDS = [1, 2, 3]; 
 
       // AUDIO
       const AUDIO_INTRO = "https://cdn.pixabay.com/audio/2022/08/02/audio_884fe92c21.mp3"; 
@@ -518,7 +522,7 @@
         const { symbol } = data;
 
         return (
-          <div className="fixed inset-0 z- flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
             <div 
               className={`
                  relative bg-void border border-rose-500/30 p-8 md:p-12 max-w-lg w-full rounded-xl shadow-[0_0_50px_rgba(225,29,72,0.3)]
@@ -977,7 +981,7 @@
               setGameState(GameState.WON);
               setWinData({ symbol: SYMBOLS[p1] });
               if (winSoundRef.current) winSoundRef.current.play().catch(() => {});
-              if (navigator.vibrate) navigator.vibrate();
+              if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
             } else {
               setGameState(GameState.IDLE);
             }
@@ -1003,7 +1007,7 @@
             {gameState === GameState.WON && <Confetti />}
 
             <div className={`
-              absolute inset-0 z-10 flex justify-between items-center pointer-events-auto py-4
+              absolute inset-0 z-10 hidden lg:flex justify-between items-center pointer-events-auto py-4
               transition-opacity duration-1000
               ${gameState === GameState.INTRO ? 'opacity-0' : 'opacity-100'}
               ${gameState === GameState.WON ? 'opacity-0' : ''}
@@ -1055,17 +1059,17 @@
 
                      <div className="flex-1 max-w-[180px] relative">
                         <div className="absolute inset-0 z-10 bg-gradient-to-b from-void via-transparent to-void pointer-events-none"></div>
-                        <Reel isSpinning={gameState === GameState.SPINNING} stopIndex={reelPositions} delay={delays} onStop={handleReelStop} showMystery={showMystery} forceStop={isForceStopping} />
+                        <Reel isSpinning={gameState === GameState.SPINNING} stopIndex={reelPositions[0]} delay={delays[0]} onStop={handleReelStop} showMystery={showMystery} forceStop={isForceStopping} />
                      </div>
 
                      <div className="flex-1 max-w-[180px] relative">
                         <div className="absolute inset-0 z-10 bg-gradient-to-b from-void via-transparent to-void pointer-events-none"></div>
-                        <Reel isSpinning={gameState === GameState.SPINNING} stopIndex={reelPositions} delay={delays} onStop={handleReelStop} showMystery={showMystery} forceStop={isForceStopping} />
+                        <Reel isSpinning={gameState === GameState.SPINNING} stopIndex={reelPositions[1]} delay={delays[1]} onStop={handleReelStop} showMystery={showMystery} forceStop={isForceStopping} />
                      </div>
 
                      <div className="flex-1 max-w-[180px] relative">
                          <div className="absolute inset-0 z-10 bg-gradient-to-b from-void via-transparent to-void pointer-events-none"></div>
-                        <Reel isSpinning={gameState === GameState.SPINNING} stopIndex={reelPositions} delay={delays} onStop={handleReelStop} showMystery={showMystery} forceStop={isForceStopping} />
+                        <Reel isSpinning={gameState === GameState.SPINNING} stopIndex={reelPositions[2]} delay={delays[2]} onStop={handleReelStop} showMystery={showMystery} forceStop={isForceStopping} />
                      </div>
                  </div>
               </div>
